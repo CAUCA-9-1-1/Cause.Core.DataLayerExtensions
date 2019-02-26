@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Fred Catellier-Poulin</Authors>
+    <Company>CAUSE INC.</Company>
+    <Description>A set of extensions for EntityFrameworkCore.</Description>
+    <Copyright>CAUSE 2019</Copyright>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/CAUCA-9-1-1/Cause.Core.DataLayerExtensions</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/CAUCA-9-1-1/Cause.Core.DataLayerExtensions</RepositoryUrl>
+    <PackageTags>EntityFramewokCore Cause Extensions</PackageTags>
+    <PackageReleaseNotes>Initial version.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
