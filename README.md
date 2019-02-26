@@ -1,4 +1,5 @@
 # Cause.Core.DataLayerExtensions
+[![NuGet version](https://badge.fury.io/nu/Cause.Core.DataLayerExtensions.svg)](https://badge.fury.io/nu/Cause.Core.DataLayerExtensions)
 
 Cause.Core.DataLayerExtensions are a set of extensions for EntityFrameworkCore :
 * Mapping classes.
