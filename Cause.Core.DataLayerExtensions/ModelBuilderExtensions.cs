@@ -5,7 +5,6 @@ using System.Reflection;
 using Cause.Core.DataLayerExtensions.Mapping;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Cause.Core.DataLayerExtensions
 {
@@ -42,33 +41,37 @@ namespace Cause.Core.DataLayerExtensions
             foreach (var entity in builder.Model.GetEntityTypes())
             {
                 foreach (var key in entity.GetProperties().Where(column => column.IsPrimaryKey()))
-                    key.Relational().ColumnName = key.Relational().ColumnName + entity.DisplayName();
+                {
+                    key.SetColumnName(key.GetColumnName() + entity.DisplayName());
+                }
             }
         }
 
         public static void UseTablePrefix(this ModelBuilder builder, string prefix)
         {
             foreach (var entity in builder.Model.GetEntityTypes())
-                entity.Relational().TableName = prefix + entity.Relational().TableName;
+            {
+                entity.SetTableName(prefix + entity.GetTableName());
+            }
         }
 
         public static void UseAutoSnakeCaseMapping(this ModelBuilder builder)
         {
             foreach (var entity in builder.Model.GetEntityTypes())
             {
-                entity.Relational().TableName = entity.DisplayName().ToSnakeCase();
+                entity.SetTableName(entity.DisplayName().ToSnakeCase());
 
                 foreach (var property in entity.GetProperties())
-                    property.Relational().ColumnName = property.Relational().ColumnName.ToSnakeCase();
+                    property.SetColumnName(property.GetColumnName().ToSnakeCase());
 
                 foreach (var key in entity.GetKeys())
-                    key.Relational().Name = key.Relational().Name.ToSnakeCase();
+                    key.SetName(key.GetName().ToSnakeCase());
 
                 foreach (var key in entity.GetForeignKeys())
-                    key.Relational().Name = key.Relational().Name.ToSnakeCase();
+                    key.SetConstraintName(key.GetConstraintName().ToSnakeCase());
 
                 foreach (var index in entity.GetIndexes())
-                    index.Relational().Name = index.Relational().Name.ToSnakeCase();
+                    index.SetName(index.GetName().ToSnakeCase());
             }
         }
     }

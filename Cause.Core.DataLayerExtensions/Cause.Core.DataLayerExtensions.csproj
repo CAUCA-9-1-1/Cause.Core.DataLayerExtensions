@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Fred Catellier-Poulin</Authors>
     <Company>CAUSE INC.</Company>
@@ -11,12 +11,13 @@
     <PackageProjectUrl>https://github.com/CAUCA-9-1-1/Cause.Core.DataLayerExtensions</PackageProjectUrl>
     <RepositoryUrl>https://github.com/CAUCA-9-1-1/Cause.Core.DataLayerExtensions</RepositoryUrl>
     <PackageTags>EntityFramewokCore Cause Extensions</PackageTags>
-    <PackageReleaseNotes>Initial version.</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated to .Net Core 3.0</PackageReleaseNotes>
+    <Version>3.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.0.0" />
   </ItemGroup>
 
 </Project>
