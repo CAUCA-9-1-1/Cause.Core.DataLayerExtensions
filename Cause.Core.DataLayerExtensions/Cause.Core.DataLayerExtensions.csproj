@@ -11,15 +11,15 @@
     <PackageProjectUrl>https://github.com/CAUCA-9-1-1/Cause.Core.DataLayerExtensions</PackageProjectUrl>
     <RepositoryUrl>https://github.com/CAUCA-9-1-1/Cause.Core.DataLayerExtensions</RepositoryUrl>
     <PackageTags>EntityFramewokCore Cause Extensions</PackageTags>
-    <PackageReleaseNotes>Updated to .Net Core 3.1</PackageReleaseNotes>
-    <Version>3.1.0</Version>
-    <AssemblyVersion>3.1.0.0</AssemblyVersion>
+    <PackageReleaseNotes>Fix IQueryable.ToSql() that was broken since 3.1.</PackageReleaseNotes>
+    <Version>3.1.1</Version>
+    <AssemblyVersion>3.1.1.0</AssemblyVersion>
     <FileVersion>3.1.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.*" />
   </ItemGroup>
 
 </Project>
