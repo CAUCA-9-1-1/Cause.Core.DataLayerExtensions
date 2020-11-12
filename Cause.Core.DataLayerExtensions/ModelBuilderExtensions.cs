@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Cause.Core.DataLayerExtensions.Mapping;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Cause.Core.DataLayerExtensions
@@ -14,7 +15,7 @@ namespace Cause.Core.DataLayerExtensions
         {
             return assembly.GetTypes()
                 .Where(x => !x.IsAbstract && x.GetInterfaces()
-                                .Any(y => IntrospectionExtensions.GetTypeInfo(y).IsGenericType && y.GetGenericTypeDefinition() == mappingInterface));
+                    .Any(y => IntrospectionExtensions.GetTypeInfo(y).IsGenericType && y.GetGenericTypeDefinition() == mappingInterface));
         }
 
         public static PropertyBuilder<decimal?> HasPrecision(this PropertyBuilder<decimal?> builder, int precision, int scale)
@@ -40,9 +41,10 @@ namespace Cause.Core.DataLayerExtensions
         {
             foreach (var entity in builder.Model.GetEntityTypes())
             {
+                var tableIdentifier = StoreObjectIdentifier.Create(entity, StoreObjectType.Table);
                 foreach (var key in entity.GetProperties().Where(column => column.IsPrimaryKey()))
                 {
-                    key.SetColumnName(key.GetColumnName() + entity.DisplayName());
+                    key.SetColumnName(key.GetColumnName(tableIdentifier.Value) + entity.DisplayName());
                 }
             }
         }
@@ -59,10 +61,12 @@ namespace Cause.Core.DataLayerExtensions
         {
             foreach (var entity in builder.Model.GetEntityTypes())
             {
+                var tableIdentifier = StoreObjectIdentifier.Create(entity, StoreObjectType.Table);
+
                 entity.SetTableName(entity.DisplayName().ToSnakeCase());
 
                 foreach (var property in entity.GetProperties())
-                    property.SetColumnName(property.GetColumnName().ToSnakeCase());
+                    property.SetColumnName(property.GetColumnName(tableIdentifier.Value).ToSnakeCase());
 
                 foreach (var key in entity.GetKeys())
                     key.SetName(key.GetName().ToSnakeCase());
@@ -71,7 +75,7 @@ namespace Cause.Core.DataLayerExtensions
                     key.SetConstraintName(key.GetConstraintName().ToSnakeCase());
 
                 foreach (var index in entity.GetIndexes())
-                    index.SetName(index.GetName().ToSnakeCase());
+                    index.SetDatabaseName(index.GetDatabaseName().ToSnakeCase());
             }
         }
     }
