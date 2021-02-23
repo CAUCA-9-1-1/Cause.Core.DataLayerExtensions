@@ -61,13 +61,13 @@ namespace Cause.Core.DataLayerExtensions
         {
             foreach (var entity in builder.Model.GetEntityTypes())
             {
-                var tableIdentifier = StoreObjectIdentifier.Create(entity, StoreObjectType.Table);
-
                 entity.SetTableName(entity.DisplayName().ToSnakeCase());
+
+                var tableIdentifier = StoreObjectIdentifier.Create(entity, StoreObjectType.Table);
 
                 foreach (var property in entity.GetProperties())
                     property.SetColumnName(property.GetColumnName(tableIdentifier.Value).ToSnakeCase());
-
+                    
                 foreach (var key in entity.GetKeys())
                     key.SetName(key.GetName().ToSnakeCase());
 

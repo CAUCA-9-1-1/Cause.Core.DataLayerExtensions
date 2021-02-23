@@ -6,15 +6,15 @@
     <Authors>Fred Catellier-Poulin</Authors>
     <Company>CAUSE INC.</Company>
     <Description>A set of extensions for EntityFrameworkCore.</Description>
-    <Copyright>CAUCA 2020</Copyright>
+    <Copyright>CAUCA 2021</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/CAUCA-9-1-1/Cause.Core.DataLayerExtensions</PackageProjectUrl>
     <RepositoryUrl>https://github.com/CAUCA-9-1-1/Cause.Core.DataLayerExtensions</RepositoryUrl>
     <PackageTags>EntityFramewokCore Cause Extensions</PackageTags>
-    <PackageReleaseNotes>.Net 5 support</PackageReleaseNotes>
-    <Version>5.0.0</Version>
-    <AssemblyVersion>5.0.0.0</AssemblyVersion>
-    <FileVersion>5.0.0.0</FileVersion>
+    <PackageReleaseNotes>UseAutoSnakeCaseMapping was not behaving correctly.</PackageReleaseNotes>
+    <Version>5.0.1</Version>
+    <AssemblyVersion>5.0.1.0</AssemblyVersion>
+    <FileVersion>5.0.1.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
