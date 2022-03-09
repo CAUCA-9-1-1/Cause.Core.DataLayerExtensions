@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Cause.Core.DataLayerExtensions
 {
+
     public static class ModelBuilderExtensions
     {
         private static IEnumerable<Type> GetMappingTypes(this Assembly assembly, Type mappingInterface)
@@ -28,16 +29,17 @@ namespace Cause.Core.DataLayerExtensions
             return builder.HasColumnType($"decimal({precision},{scale})");
         }
 
-        public static void AddEntityConfigurationsFromAssembly(this ModelBuilder modelBuilder, Assembly assembly)
+        public static ModelBuilder AddEntityConfigurationsFromAssembly(this ModelBuilder modelBuilder, Assembly assembly)
         {
             var mappingTypes = assembly.GetMappingTypes(typeof(IEntityMappingConfiguration<>));
             foreach (var config in mappingTypes.Select(Activator.CreateInstance).Cast<IEntityMappingConfiguration>())
             {
                 config.Map(modelBuilder);
             }
+            return modelBuilder;
         }
 
-        public static void AddTableNameToPrimaryKey(this ModelBuilder builder)
+        public static ModelBuilder AddTableNameToPrimaryKey(this ModelBuilder builder)
         {
             foreach (var entity in builder.Model.GetEntityTypes())
             {
@@ -47,17 +49,19 @@ namespace Cause.Core.DataLayerExtensions
                     key.SetColumnName(key.GetColumnName(tableIdentifier.Value) + entity.DisplayName());
                 }
             }
+            return builder;
         }
 
-        public static void UseTablePrefix(this ModelBuilder builder, string prefix)
+        public static ModelBuilder UseTablePrefix(this ModelBuilder builder, string prefix)
         {
             foreach (var entity in builder.Model.GetEntityTypes())
             {
                 entity.SetTableName(prefix + entity.GetTableName());
             }
+            return builder;
         }
 
-        public static void UseAutoSnakeCaseMapping(this ModelBuilder builder)
+        public static ModelBuilder UseAutoSnakeCaseMapping(this ModelBuilder builder)
         {
             foreach (var entity in builder.Model.GetEntityTypes())
             {
@@ -77,6 +81,7 @@ namespace Cause.Core.DataLayerExtensions
                 foreach (var index in entity.GetIndexes())
                     index.SetDatabaseName(index.GetDatabaseName().ToSnakeCase());
             }
-        }
+            return builder;
+        }        
     }
 }

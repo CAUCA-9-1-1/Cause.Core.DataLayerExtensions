@@ -14,13 +14,14 @@ namespace Cause.Core.DataLayerExtensions.Mapping
                 .Where(x => !x.IsAbstract && x.GetInterfaces().Any(y => IntrospectionExtensions.GetTypeInfo(y).IsGenericType && y.GetGenericTypeDefinition() == mappingInterface));
         }
 
-        public static void AddEntityConfigurationsFromAssembly(this ModelBuilder modelBuilder, Assembly assembly)
+        public static ModelBuilder AddEntityConfigurationsFromAssembly(this ModelBuilder modelBuilder, Assembly assembly)
         {
             var mappingTypes = assembly.GetMappingTypes(typeof(IEntityMappingConfiguration<>));
             foreach (var config in mappingTypes.Select(Activator.CreateInstance).Cast<IEntityMappingConfiguration>())
             {
                 config.Map(modelBuilder);
             }
-        }
+            return modelBuilder;
+        }        
     }
 }
