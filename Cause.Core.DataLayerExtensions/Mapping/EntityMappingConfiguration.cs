@@ -5,11 +5,11 @@ namespace Cause.Core.DataLayerExtensions.Mapping
 {
     public abstract class EntityMappingConfiguration<T> : IEntityMappingConfiguration<T> where T : class
     {
-        public abstract void Map(EntityTypeBuilder<T> b);
+        public abstract void Map(EntityTypeBuilder<T> builder);
 
-        public virtual void Map(ModelBuilder b)
+        public virtual void Map(ModelBuilder builder)
         {
-            Map(b.Entity<T>());
+            Map(builder.Entity<T>());
         }
     }
 }

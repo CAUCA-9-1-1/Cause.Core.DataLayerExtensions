@@ -10,6 +10,6 @@ namespace Cause.Core.DataLayerExtensions.Mapping
 
     public interface IEntityMappingConfiguration
     {
-        void Map(ModelBuilder b);
+        void Map(ModelBuilder builder);
     }
 }
