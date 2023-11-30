@@ -1,3 +1,4 @@
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace Cause.Core.DataLayerExtensions.Tests
@@ -9,14 +10,13 @@ namespace Cause.Core.DataLayerExtensions.Tests
         public void EmptyStringAreReturnedWithoutTransformation()
         {
             var value = string.Empty;
-            Assert.AreEqual(value, value.ToSnakeCase());
+            value.Should().Be(value.ToSnakeCase());
         }
 
         [TestCase]
         public void NullStringAreReturnedWithoutTransformation()
         {
-            string value = null;
-            Assert.AreEqual(value, value.ToSnakeCase());
+            ((string)null).ToSnakeCase().Should().BeNull();
         }
 
         [TestCase("MyTable", "my_table")]
@@ -24,7 +24,7 @@ namespace Cause.Core.DataLayerExtensions.Tests
         [TestCase("MyTableHasLongName", "my_table_has_long_name")]
         public void StringIsCorrectlyTransformedToSnakeCase(string name, string result)
         {
-            Assert.AreEqual(result, name.ToSnakeCase());
+            name.ToSnakeCase().Should().Be(result);
         }
     }
 }
