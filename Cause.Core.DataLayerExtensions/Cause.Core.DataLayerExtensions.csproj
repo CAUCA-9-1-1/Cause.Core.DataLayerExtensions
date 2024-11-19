@@ -1,25 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Fred Catellier-Poulin</Authors>
     <Company>CAUCA INC.</Company>
     <Description>A set of extensions for EntityFrameworkCore.</Description>
-    <Copyright>CAUCA 2022</Copyright>
+    <Copyright>CAUCA 2025</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/CAUCA-9-1-1/Cause.Core.DataLayerExtensions</PackageProjectUrl>
     <RepositoryUrl>https://github.com/CAUCA-9-1-1/Cause.Core.DataLayerExtensions</RepositoryUrl>
     <PackageTags>EntityFramewokCore Cause Extensions</PackageTags>
-    <PackageReleaseNotes>Bump to DotNet7 + EFCore 7.</PackageReleaseNotes>
-    <Version>8.0.0</Version>
-    <AssemblyVersion>8.0.0.0</AssemblyVersion>
-    <FileVersion>8.0.0.0</FileVersion>
+    <PackageReleaseNotes>Bump to DotNet9 + EFCore 9.</PackageReleaseNotes>
+    <Version>9.0.0</Version>
+    <AssemblyVersion>9.0.0.0</AssemblyVersion>
+    <FileVersion>9.0.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.*" />
   </ItemGroup>
 
 </Project>
