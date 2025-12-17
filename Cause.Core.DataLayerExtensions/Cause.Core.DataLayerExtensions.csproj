@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Fred Catellier-Poulin</Authors>
     <Company>CAUCA INC.</Company>
@@ -12,14 +12,14 @@
     <RepositoryUrl>https://github.com/CAUCA-9-1-1/Cause.Core.DataLayerExtensions</RepositoryUrl>
     <PackageTags>EntityFramewokCore Cause Extensions</PackageTags>
     <PackageReleaseNotes>Bump to DotNet9 + EFCore 9.</PackageReleaseNotes>
-    <Version>9.0.1</Version>
-    <AssemblyVersion>9.0.1.0</AssemblyVersion>
-    <FileVersion>9.0.1.0</FileVersion>
+    <Version>10.0.0</Version>
+    <AssemblyVersion>10.0.0.0</AssemblyVersion>
+    <FileVersion>10.0.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.*" />
   </ItemGroup>
 
 </Project>

@@ -4,51 +4,49 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Cause.Core.DataLayerExtensions
+namespace Cause.Core.DataLayerExtensions;
+
+public static class ExperimentalModelBuilderForDateTimeExtensions
 {
+    private const string TimeStampWithoutTimeZone = "timestamp without time zone";
+    private static readonly DateTimeUtcConverter DateTimeConverter = new();
+    private static readonly NullableDateTimeUtcConverter NullableDateTimeConverter = new();
 
-    public static class ExperimentalModelBuilderForDateTimeExtensions
+
+    public static PropertyBuilder<DateTime> HasTimestampWithoutTimeZoneType(this PropertyBuilder<DateTime> builder)
     {
-        private static string timeStampWithoutTimeZone = "timestamp without time zone";
-        private static DateTimeUtcConverter dateTimeConverter = new DateTimeUtcConverter();
-        private static NullableDateTimeUtcConverter nullableDateTimeConverter = new NullableDateTimeUtcConverter();
+        return builder.HasColumnType(TimeStampWithoutTimeZone);
+    }
 
+    public static PropertyBuilder<DateTime?> HasTimestampWithoutTimeZoneType(this PropertyBuilder<DateTime?> builder)
+    {
+        return builder.HasColumnType(TimeStampWithoutTimeZone);
+    }
 
-        public static PropertyBuilder<DateTime> HasTimestampWithoutTimeZoneType(this PropertyBuilder<DateTime> builder)
+    public static ModelBuilder AutoConvertAllDateTimeToUtc(this ModelBuilder builder)
+    {
+        foreach (var entity in builder.Model.GetEntityTypes())
         {
-            return builder.HasColumnType(timeStampWithoutTimeZone);
-        }
-
-        public static PropertyBuilder<DateTime?> HasTimestampWithoutTimeZoneType(this PropertyBuilder<DateTime?> builder)
-        {
-            return builder.HasColumnType(timeStampWithoutTimeZone);
-        }
-
-        public static ModelBuilder AutoConvertAllDateTimeToUtc(this ModelBuilder builder)
-        {
-            foreach (var entity in builder.Model.GetEntityTypes())
+            foreach (var property in entity.GetProperties().Where(IsDateTimeColumn))
             {
-                foreach (var property in entity.GetProperties().Where(property => IsDateTimeColumn(property)))
+                if (IsDateTimeColumn(property))
                 {
-                    if (IsDateTimeColumn(property))
-                    {
-                        property.SetValueConverter(dateTimeConverter);
-                                            }
-                    else if (IsNullableDateTimeColumn(property))
-                        property.SetValueConverter(nullableDateTimeConverter);
+                    property.SetValueConverter(DateTimeConverter);
                 }
+                else if (IsNullableDateTimeColumn(property))
+                    property.SetValueConverter(NullableDateTimeConverter);
             }
-            return builder;
         }
+        return builder;
+    }
 
-        private static bool IsDateTimeColumn(IMutableProperty property)
-        {
-            return property.GetColumnType() != timeStampWithoutTimeZone && property.ClrType == typeof(DateTime) && !property.IsNullable;
-        }
+    private static bool IsDateTimeColumn(IMutableProperty property)
+    {
+        return property.GetColumnType() != TimeStampWithoutTimeZone && property.ClrType == typeof(DateTime) && !property.IsNullable;
+    }
 
-        private static bool IsNullableDateTimeColumn(IMutableProperty property)
-        {
-            return property.GetColumnType() != timeStampWithoutTimeZone && property.ClrType == typeof(DateTime) && property.IsNullable;
-        }
+    private static bool IsNullableDateTimeColumn(IMutableProperty property)
+    {
+        return property.GetColumnType() != TimeStampWithoutTimeZone && property.ClrType == typeof(DateTime) && property.IsNullable;
     }
 }

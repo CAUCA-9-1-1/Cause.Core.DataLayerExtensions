@@ -1,41 +1,29 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Cause.Core.DataLayerExtensions
+namespace Cause.Core.DataLayerExtensions;
+
+public class NullableDateTimeUtcConverter()
+    : ValueConverter<DateTime?, DateTime?>(date => ToNullableUtc(date), date => ToNullableLocal(date))
 {
-    public class NullableDateTimeUtcConverter : ValueConverter<DateTime?, DateTime?>
+    private static DateTime ToUtc(DateTime date)
     {
-        public NullableDateTimeUtcConverter()
-            : base(date => ToNullableUtc(date), date => ToNullableLocal(date))
-        {
-        }
+        return date.ToUniversalTime();
+    }
 
-        private static DateTime ToUtc(DateTime date)
-        {
-            var result = date.ToUniversalTime();
-            return result;
-        }
+    private static DateTime ToLocal(DateTime date)
+    {
+        var result = date;
+        return result;
+    }
 
-        private static DateTime ToLocal(DateTime date)
-        {
-            var result = date;
-            return result;
-        }
+    private static DateTime? ToNullableLocal(DateTime? date)
+    {
+        return date.HasValue ? ToLocal(date.Value) : null;
+    }
 
-        private static DateTime? ToNullableLocal(DateTime? date)
-        {
-            if (date.HasValue)
-                return ToLocal(date.Value);
-            return date;
-        }
-
-        private static DateTime? ToNullableUtc(DateTime? date)
-        {
-            if (date.HasValue)
-            {
-                return ToUtc(date.Value);
-            }
-            return date;
-        }
+    private static DateTime? ToNullableUtc(DateTime? date)
+    {
+        return date.HasValue ? ToUtc(date.Value) : null;
     }
 }
